@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>s5plus Lib Example</title>
+    <script src="/dist/s5plus-lib.js"></script>
+
+    <script>
+      async function main() {
+        const genKeyPairFromSeed = s5plusLib.genKeyPairFromSeed;
+        const genKeyPairAndSeed = s5plusLib.genKeyPairAndSeed;
+        const deriveEd25519 = s5plusLib.deriveEd25519;
+
+        async function s5plusLib_test1() {
+          console.log('\n');
+          const genkeys = "arise decide fiber narrow noise bank tiger kitchen video might onto service against romance gulf";
+          console.log('genkeysSEED:       ', genkeys);
+          genkeysSeed = await genKeyPairFromSeed(genkeys);
+          console.log('keyPair:   ', genkeysSeed);
+
+          const dataKeyText = "testy";
+          const dataKP = await deriveEd25519(await genkeysSeed.privateKey, dataKeyText, 32);
+          console.log('dataKP:   ', dataKP);
+        }
+        await s5plusLib_test1()
+
+        async function genKEY() {
+          const genkeys = await genKeyPairAndSeed();
+          console.log('genkeys:       ', genkeys);
+        }
+        await genKEY();
+      }
+      main();
+    </script>
+  </head>
+  <body>
+s5plus Lib Example
+  </body>
+</html>
